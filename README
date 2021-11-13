@@ -1,8 +1,8 @@
 RAISEUP assignment.
 
-Installation guideline
+Installation guidelines
 
-Step:
+Steps:
 
 1. After download or clone project
 2. Go to the folder application using cd
@@ -48,6 +48,8 @@ Admin routes:-
 "../api/admin/delete/{id}" Delete admin from database.
 "../api/admin/update-status/{id}" Update admin status from database.
 "../api/admin/update-password/{id}" Update admin status from database.
+
+Test via "Postman"
 
 PACKEGES //
 Intervention Image for image decoration.
