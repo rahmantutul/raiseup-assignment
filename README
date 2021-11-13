@@ -1,15 +1,28 @@
 RAISEUP assignment.
 
-Start apache server,
-go to cmd/powersell from project folder and run php artisan serve.
-go to url "/admin" for login page. 
+Installation guideline
+
+Step:
+
+1. After download or clone project
+2. Go to the folder application using cd
+3. Run composer install on your cmd or terminal
+4. Copy .env.example file to .env on root folder.
+   You can type "copy .env.example .env" if using command prompt Windows
+   or "cp .env.example .env" if using terminal Ubuntu
+5. Open your .env file and change the database name (DB_DATABASE) and create a database same ase given to .env file.
+6. Run php artisan key:generate
+7. run "php artisan migrate --seed"
+8. Run "php artisan serve"
+
+go to url "/admin" for login page.
 enter email: admin@admin.com. Pass:12345678 (admin)
 
-This will get you to admin dashboard as an admin. 
+This will get you to admin dashboard as an admin.
 here you can add users, change your information, change password, and active/inactive users by updating status.(If you are general user these option will no appear)
 You can upload, edit, delete and active/inactive job status. And logout yourself.
 
-go to url "/admin" for login page. 
+go to url "/admin" for login page.
 enter email: general@general.com. Pass:12345678 (general)
 This will get you to dashboard as general user. Here you can just see job list and a single job page to view the details of that job. And logout option.
 
@@ -21,14 +34,14 @@ API//
 API routes:
 
 Job routes:-
-"../api/job/index/id?" for all job information or a single job information 
+"../api/job/index/id?" for all job information or a single job information
 "../api/job/add" Add new job to database.
 "../api/job/edit/{id}" Edit job from database.
 "../api/job/delete/{id}" Delete job from database.
 "../api/job/update-status/{id}" Update job status from database.
 
 Admin routes:-
-"../api/admin/index/{id?}" for all admin information or a single job information 
+"../api/admin/index/{id?}" for all admin information or a single job information
 "../api/admin/add" Add new admin/user to database.
 "../api/admin/login" Login admin/user.
 "../api/admin/edit/{id}" Edit admin from database.
@@ -54,7 +67,3 @@ VERSION //
 "laravel/ui": "^3.3"
 
 Mostafijur Rahman
-
-
-
-
