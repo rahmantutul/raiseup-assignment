@@ -18,6 +18,11 @@ class AdminController extends Controller
         return view('backend.pages.index'); die;
     }
 
+    public function adminList(){
+        $admins= Admin::all()->toArray();
+        return view('backend.pages.admin.index')->with(compact('admins'));
+    }
+
     public function login(Request $request){
         if($request->isMethod('post')){
             $data=$request->all();
@@ -40,71 +45,7 @@ class AdminController extends Controller
         return redirect('/admin');die;
     }
 
-    public function edit(Request $request, $id){
-        $adminInfo= Admin::find('id',$id);
-        if($request->isMethod('post')){
-            $data=$request->all();
-            $request->validate([
-              'phone'=>'required|max:11|min:11',
-              'name'=>'required',
-            ]);
-             if($request->hasFile('image'))
-            {
-             $image=$request->file('image');
-             $currentDate=Carbon::now()->toDateString();
-             $imageName=$currentDate.'-'.uniqid().'-'.$image->getClientOriginalExtension();
-
-             if(!Storage::disk('public')->exists('images/admin'))
-             {
-                Storage::disk('public')->makeDirectory('images/admin');
-             }
-
-             $profileImage = Image::make($image)->resize(400,400)->stream();
-             Storage::disk('public')->put('images/admin/'.$imageName,$profileImage);
-            }else{
-                $imageName= $adminInfo['image'];
-            }
-            $adminInfo->image=$imageName;
-            $adminInfo->phone=$data['phone'];
-            $adminInfo->name=$data['name'];
-            $adminInfo->save();
-            Toastr::success('Information updated!','Success');
-            return redirect()->back(); die;
-        }
-          return view('backend.pages.setting')->with(compact('adminInfo'));
-    }
-
-
-    public function updatePassword(Request $request){
-        $adminInfo= Admin::where('id',Auth::guard('admin')->user()->id)->first();
-        if($request->isMethod('post')){
-            $request->validate([
-           'current'=>'required',
-           'new'=>'required',
-           'confirm'=>'required'
-            ]);
-            $data= $request->all();
-            if(Hash::check($data['current'], Auth::guard('admin')->user()->password)){
-                if($data['new']==$data['confirm']){
-                    Admin::where('id',Auth::guard('admin')->user()->id)->update(['password'=>bcrypt($data['new'])]);
-                    Toastr::success('Success!', 'Password Updated Successfully!');
-                    return back();die;
-                }
-            }else{
-                Toastr::error('Invalid!', 'Passwords do match!');
-                return redirect()->back(); die;
-            }
-        }
-        return view('backend.pages.updatePassword')->with(compact('adminInfo'));
-    }
-
-    public function adminList(){
-        $admins= Admin::all()->toArray();
-        return view('backend.pages.admin.index')->with(compact('admins'));
-    }
-
-
-    public function add(Request $request){
+   public function add(Request $request){
         if($request->isMethod('post')){
             $data=$request->all();
             $request->validate([
@@ -145,7 +86,40 @@ class AdminController extends Controller
         return view('backend.pages.admin.add_admin');
     }
 
+    public function edit(Request $request, $id){
+        $adminInfo= Admin::find('id',$id);
+        if($request->isMethod('post')){
+            $data=$request->all();
+            $request->validate([
+              'phone'=>'required|max:11|min:11',
+              'name'=>'required',
+            ]);
+             if($request->hasFile('image'))
+            {
+             $image=$request->file('image');
+             $currentDate=Carbon::now()->toDateString();
+             $imageName=$currentDate.'-'.uniqid().'-'.$image->getClientOriginalExtension();
 
+             if(!Storage::disk('public')->exists('images/admin'))
+             {
+                Storage::disk('public')->makeDirectory('images/admin');
+             }
+
+             $profileImage = Image::make($image)->resize(400,400)->stream();
+             Storage::disk('public')->put('images/admin/'.$imageName,$profileImage);
+            }else{
+                $imageName= $adminInfo['image'];
+            }
+            $adminInfo->image=$imageName;
+            $adminInfo->phone=$data['phone'];
+            $adminInfo->name=$data['name'];
+            $adminInfo->save();
+            Toastr::success('Information updated!','Success');
+            return redirect()->back(); die;
+        }
+          return view('backend.pages.setting')->with(compact('adminInfo'));
+    }
+    
     public function delete($id){
          $data= Admin::find($id);
          if(Storage::disk('public')->exists('images/admin/'.$data->image))
@@ -156,7 +130,28 @@ class AdminController extends Controller
          Toastr::success('Success!','User deleted successfully!');
          return redirect()->back();
     }
-
+    public function updatePassword(Request $request){
+        $adminInfo= Admin::where('id',Auth::guard('admin')->user()->id)->first();
+        if($request->isMethod('post')){
+            $request->validate([
+           'current'=>'required',
+           'new'=>'required',
+           'confirm'=>'required'
+            ]);
+            $data= $request->all();
+            if(Hash::check($data['current'], Auth::guard('admin')->user()->password)){
+                if($data['new']==$data['confirm']){
+                    Admin::where('id',Auth::guard('admin')->user()->id)->update(['password'=>bcrypt($data['new'])]);
+                    Toastr::success('Success!', 'Password Updated Successfully!');
+                    return back();die;
+                }
+            }else{
+                Toastr::error('Invalid!', 'Passwords do match!');
+                return redirect()->back(); die;
+            }
+        }
+        return view('backend.pages.updatePassword')->with(compact('adminInfo'));
+    }
 
     public function updateAdminStatus(Request $request){
         if($request->ajax()){

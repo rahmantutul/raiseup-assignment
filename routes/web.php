@@ -28,11 +28,11 @@ Route::group(['prefix' => 'admin', 'as'=>'.admin'], function() {
         Route::get('logout', [AdminController::class, 'logout']);
         // Prevent general user from these routes 
         Route::middleware([CheckUserType::class])->group(function(){
-            Route::match(['get', 'post'], 'edit/{id}', [AdminController::class, 'setting']);
-            Route::match(['get', 'post'], 'update-password', [AdminController::class, 'updatePassword']);
             Route::get('index', [AdminController::class, 'adminList']);
             Route::match(['get', 'post'], 'add', [AdminController::class, 'add']);
+            Route::match(['get', 'post'], 'edit/{id}', [AdminController::class, 'setting']);
             Route::get('delete-admin/{id}', [AdminController::class, 'delete']);
+            Route::match(['get', 'post'], 'update-password', [AdminController::class, 'updatePassword']);
             Route::post('/update-admin-status', [AdminController::class, 'updateAdminStatus']);
         });
         // Jobs routes 

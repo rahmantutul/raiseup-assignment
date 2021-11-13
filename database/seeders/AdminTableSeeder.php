@@ -18,6 +18,9 @@ class AdminTableSeeder extends Seeder
         $admins=[
             ['name'=>'admin','email'=>'admin@admin.com','phone'=>'01881053602','type'=>'admin','status'=>1,'image'=>'default.png','remember_token'=>'barerAdminWithSuperPower','password'=>bcrypt('12345678')],
         ];
+        admins=[
+            ['name'=>'General','email'=>'general@general.com','phone'=>'01881053602','type'=>'general','status'=>1,'image'=>'default.png','remember_token'=>'barerAdminWithSuperPower','password'=>bcrypt('12345678')],
+        ];
         Admin::insert($admins);
     }
 }

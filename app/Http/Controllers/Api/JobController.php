@@ -92,15 +92,16 @@ class JobController extends Controller
         return response()->json(["massage"=>"Job deleted"],202);
     }
     public function updateStatus(Request $request,$id){
-        if($request->isMethod('post')){
+        if($request->isMethod('patch')){
             $data=$request->input();
-            Job::where('id',$id)->update(['status'=>$data['status']]);
-            if($data['status']==1){
-               return response()->json(["massage"=>"Job enabled"],201);
+            $admin=Job::find($id);
+            if($admin['status']==0){
+                Job::where('id',$id)->update(['status'=>1]);
+               return response()->json(["massage"=>"User enabled"],201);
             }else{
-                 return response()->json(["massage"=>"Job disabled"],201);
+                Job::where('id',$id)->update(['status'=>0]);
+                 return response()->json(["massage"=>"User disabled"],201);
             }
-            
             
         }
     }

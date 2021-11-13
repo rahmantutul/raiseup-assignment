@@ -1,0 +1,60 @@
+RAISEUP assignment.
+
+Start apache server,
+go to cmd/powersell from project folder and run php artisan serve.
+go to url "/admin" for login page. 
+enter email: admin@admin.com. Pass:12345678 (admin)
+
+This will get you to admin dashboard as an admin. 
+here you can add users, change your information, change password, and active/inactive users by updating status.(If you are general user these option will no appear)
+You can upload, edit, delete and active/inactive job status. And logout yourself.
+
+go to url "/admin" for login page. 
+enter email: general@general.com. Pass:12345678 (general)
+This will get you to dashboard as general user. Here you can just see job list and a single job page to view the details of that job. And logout option.
+
+Security //
+Custom authentication with admin middleware.
+Secure routes/urls blocked from general users that they can't go with giving urls.
+
+API//
+API routes:
+
+Job routes:-
+"../api/job/index/id?" for all job information or a single job information 
+"../api/job/add" Add new job to database.
+"../api/job/edit/{id}" Edit job from database.
+"../api/job/delete/{id}" Delete job from database.
+"../api/job/update-status/{id}" Update job status from database.
+
+Admin routes:-
+"../api/admin/index/{id?}" for all admin information or a single job information 
+"../api/admin/add" Add new admin/user to database.
+"../api/admin/login" Login admin/user.
+"../api/admin/edit/{id}" Edit admin from database.
+"../api/admin/delete/{id}" Delete admin from database.
+"../api/admin/update-status/{id}" Update admin status from database.
+"../api/admin/update-password/{id}" Update admin status from database.
+
+PACKEGES //
+Intervention Image for image decoration.
+Toastr for alert.
+Laravel passport for api authentication.
+
+VERSION //
+
+"php": "^7.3|^8.0",
+"brian2694/laravel-toastr": "^5.56",
+"fruitcake/laravel-cors": "^2.0",
+"guzzlehttp/guzzle": "^7.0.1",
+"intervention/image": "^2.7",
+"laravel/framework": "^8.65",
+"laravel/passport": "^10.2",
+"laravel/tinker": "^2.5",
+"laravel/ui": "^3.3"
+
+Mostafijur Rahman
+
+
+
+

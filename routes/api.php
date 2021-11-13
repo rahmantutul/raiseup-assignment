@@ -16,22 +16,23 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
 Route::prefix('job')->group(function () {
-    // Route::get('index/{id?}', [JobController::class, 'index']);
-    // Route::post('add', [JobController::class, 'add']);
-    // Route::put('edit/{id}', [JobController::class, 'edit']);
-    // Route::delete('delete/{id}', [JobController::class, 'delete']);
-    // Route::post('update-status/{id}', [JobController::class, 'updateStatus']);
+    Route::get('index/{id?}', [JobController::class, 'index']);
+    Route::post('add', [JobController::class, 'add']);
+    Route::put('edit/{id}', [JobController::class, 'edit']);
+    Route::delete('delete/{id}', [JobController::class, 'delete']);
+    Route::post('update-status/{id}', [JobController::class, 'updateStatus']);
 });
 Route::prefix('admin')->group(function () {
-    // Route::get('index/{id?}', [AdminController::class, 'index']);
-    // Route::post('add', [AdminController::class, 'add']);
-    // Route::post('login', [AdminController::class, 'login']);
-    Route::post('edit/{id}', [AdminController::class, 'edit']);
-    Route::delete('delete/{id?}', [AdminController::class, 'delete']);
+    Route::get('index/{id?}', [AdminController::class, 'index']);
+    Route::post('login', [AdminController::class, 'login']);
+    Route::post('add', [AdminController::class, 'register']);
+    Route::put('edit/{id}', [AdminController::class, 'edit']);
+    Route::delete('delete/{id}', [AdminController::class, 'delete']);
     Route::patch('update-status/{id}', [AdminController::class, 'updateStatus']);
+    Route::patch('update-password/{id}', [AdminController::class, 'updatePassword']);
 });
